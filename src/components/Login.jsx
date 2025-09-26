@@ -29,6 +29,7 @@ function Login() {
                 if (userData){
                     //authLogin is the login action inside authSlice. login is named as authLogin in above import
                     dispatch(authLogin(userData));
+                    window.location.reload()
                     navigate("/")
                 }
             }
