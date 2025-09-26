@@ -19,7 +19,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
           <Editor
             initialValue={defaultValue}
             init={{
-                apiKey: 'alj0nk5xetpipds33ca82lo2yy0uv3k0krsvlj77stzlaell',
+                apiKey: import.meta.env.VITE_TINYMCE_API_KEY,
                 selector: 'textarea', // Your selector here
                 skin: 'oxide-dark',    // Applies the dark skin
                 content_css: 'dark',    // Applies the dark content styles
