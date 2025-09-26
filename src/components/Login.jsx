@@ -29,6 +29,7 @@ function Login() {
                 if (userData){
                     //authLogin is the login action inside authSlice. login is named as authLogin in above import
                     dispatch(authLogin(userData));
+                    //reload added to render edit and delete button immediately after login
                     window.location.reload()
                     navigate("/")
                 }
