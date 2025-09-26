@@ -16,6 +16,7 @@ function Login() {
     const {register, handleSubmit} = useForm();
     const [error, setError] = useState("");
 
+    
     const login = async (data) => {
         // we always set the error to "" at the beginning of a form
         setError("")
