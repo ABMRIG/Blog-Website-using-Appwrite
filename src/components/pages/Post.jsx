@@ -18,6 +18,8 @@ export default function Post() {
     // therefore, edit and delete buttons are not renderdered on 1st render.
     console.log("isAuthor: ",isAuthor)
 
+    useEffect(()=>{window.scrollTo(0,0)},[])
+
     useEffect(()=>{
         if (slug){
             appwriteService.getPost(slug).then((post)=>{

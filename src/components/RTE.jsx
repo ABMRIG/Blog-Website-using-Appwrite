@@ -2,11 +2,11 @@ import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 
-export default function RTE({ name, control, label, defaultValue = "" }) {
+export default function RTE({ name, control, label, defaultValue = "", labelClassName="" }) {
   return (
     <div className="w-full text-white">
       
-      {label && <label className="inline-block mb-1 pl-1">{label}</label>}
+      {label && <label className={`inline-block mb-1 pl-1 ${labelClassName}`}>{label}</label>}
 
       {/* The <Controller/> tag is responsible for wraping external elemets like RTE to get integrated with React-Hook-Form since we don't get ref or name attributes for external elements */}
       <Controller
@@ -51,7 +51,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                 toolbar:
                     'undo redo | blocks fontfamily fontsize forecolor bold italic underline | strikethrough link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
                 content_style:
-                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }, html body { overflow: hidden; }",
             }}
             onEditorChange={onChange}
           />
