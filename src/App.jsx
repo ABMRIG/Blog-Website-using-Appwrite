@@ -5,6 +5,7 @@ import './App.css'
 import {login, logout} from "./store/authSlice" 
 import {Header, Footer} from "./components/index" 
 import {Outlet} from "react-router-dom"
+import { Bounce, ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -37,6 +38,19 @@ function App() {
       <Header/>
       <main>
         {/* TODO: <Outlet/> */}
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+        />
         <Outlet/>
       </main>
       <Footer/>

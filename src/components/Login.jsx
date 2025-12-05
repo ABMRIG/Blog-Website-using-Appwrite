@@ -6,6 +6,8 @@ import {Button, Input, Logo} from "./index"
 import { useDispatch } from 'react-redux'
 import authService from '../appwrite/auth'
 import { useForm } from "react-hook-form"
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 function Login() {
@@ -16,8 +18,16 @@ function Login() {
     const {register, handleSubmit} = useForm();
     const [error, setError] = useState("");
 
-    
+    const [isLoggedIn, setLoggedIn] = useState(false);
+
+    const notify = () => {
+        toast("Login Successful!",
+            {className: 'border border-purple-600/40'}
+        )
+    };
+
     const login = async (data) => {
+        setLoggedIn(true);
         // we always set the error to "" at the beginning of a form
         setError("")
         try{
@@ -30,7 +40,8 @@ function Login() {
                     //authLogin is the login action inside authSlice. login is named as authLogin in above import
                     dispatch(authLogin(userData));
                     //reload added to render edit and delete button immediately after login
-                    window.location.reload()
+                    // window.location.reload()
+                    
                     navigate("/")
                 }
             }
@@ -38,6 +49,7 @@ function Login() {
         catch (error){
             setError(error.message)
         }
+        setLoggedIn(false);
     }
 
     return (
@@ -88,11 +100,13 @@ function Login() {
                         </Input>
 
                         <Button
+                            onClick = {notify}
                             type="submit"
                             className="w-full"
                         >
-                            Sign in
+                            {isLoggedIn ? "Signing In" : "Sign in"}
                         </Button>
+                        
                     </div>
 
                 </form>

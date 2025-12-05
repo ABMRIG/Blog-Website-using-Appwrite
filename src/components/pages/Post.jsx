@@ -18,6 +18,15 @@ export default function Post() {
     // therefore, edit and delete buttons are not renderdered on 1st render.
     console.log("isAuthor: ",isAuthor)
 
+    // const str = "Doesn't change";
+
+    // useEffect(()=>{
+    //     if (!window.location.hash) {
+    //         window.location.hash = 'reloaded';
+    //         window.location.reload();
+    //     }
+    // })
+
     useEffect(()=>{window.scrollTo(0,0)},[])
 
     useEffect(()=>{
