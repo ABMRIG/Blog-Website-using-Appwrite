@@ -20,11 +20,11 @@ function Login() {
 
     const [isLoggedIn, setLoggedIn] = useState(false);
 
-    const notify = () => {
-        toast("Login Successful!",
-            {className: 'border border-purple-600/40'}
-        )
-    };
+    // const notify = () => {
+    //     toast("Login Successful!",
+    //         {className: 'border border-purple-600/40'}
+    //     )
+    // };
 
     const login = async (data) => {
         setLoggedIn(true);
@@ -41,7 +41,9 @@ function Login() {
                     dispatch(authLogin(userData));
                     //reload added to render edit and delete button immediately after login
                     // window.location.reload()
-                    
+                    toast("Login Successful!",
+                        {className: 'border border-purple-600/40'}
+                    )
                     navigate("/")
                 }
             }
@@ -100,7 +102,7 @@ function Login() {
                         </Input>
 
                         <Button
-                            onClick = {notify}
+                            // onClick = {isLoggedIn == true ? notify : null}
                             type="submit"
                             className="w-full"
                         >
