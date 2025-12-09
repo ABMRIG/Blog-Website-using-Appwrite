@@ -5,17 +5,17 @@ import { useSelector } from "react-redux";
 
 function MyPosts() {
     const [posts, setPosts] = useState([])
-    
+
     const userData = useSelector((state) => state.auth.userData);
 
-    
+
     useEffect(() => {
-        console.log("MyPosts",userData);
-        appwriteService.getFileByUserId(userData.userData.$id).then((posts) => {
-        if (posts) {
-            setPosts(posts.documents)
-        }
-    })
+        console.log("MyPosts", userData);
+        appwriteService.getFileByUserId(userData.$id).then((posts) => {
+            if (posts) {
+                setPosts(posts.documents)
+            }
+        })
     }, [])
 
     return (
@@ -28,9 +28,9 @@ function MyPosts() {
                         </div>
                     ))}
                 </div>
-                </Container>
+            </Container>
         </div>
-  )
+    )
 }
 
 export default MyPosts
