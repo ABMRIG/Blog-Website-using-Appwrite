@@ -138,6 +138,22 @@ export class Service{
             fileId
         )
     }
+
+    async getFileByUserId(userId){
+        console.log(userId)
+        try{
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [
+                    Query.equal("userId", userId)
+                ]
+            )
+        }
+        catch(error){
+            console.log("Appwrite Service :: getFilebyUserId :: error: ",error)
+        }
+    }
 }
 
 const service = new Service();

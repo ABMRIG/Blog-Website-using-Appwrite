@@ -10,14 +10,28 @@ export default function Post() {
     const { slug } = useParams();
     const navigate = useNavigate();
 
-    const userData = useSelector((state) => state.auth.userData);
+    const userData = useSelector((state) => {
+        // console.log(state.auth.userData)
+        return state.auth.userData});
+    
+    const isAuthor = post && userData?.userData
+    ? post.userId === userData.userData.$id
+    : false;
 
-    const isAuthor = post && userData ? post.userId === userData.$id : false;
     // on the very 1st render, the post of useState has not been populated by getPost().
     // for this reason, isAuthor is still false
     // therefore, edit and delete buttons are not renderdered on 1st render.
-    console.log("isAuthor: ",isAuthor)
-
+    
+    // console.log("isAuthor: ",isAuthor)
+    
+    
+    //The two below prints display null and undefined as getting post and userData is asynchronus in nature
+    // console.log("post",post)
+    // console.log("userdata",userData)
+    
+    
+    
+    
     // const str = "Doesn't change";
 
     // useEffect(()=>{
@@ -34,6 +48,7 @@ export default function Post() {
             appwriteService.getPost(slug).then((post)=>{
                 if (post){
                     setPost(post);
+                    console.log(post.userId)
                 } else{
                     navigate("/");
                 }
@@ -42,7 +57,7 @@ export default function Post() {
         else{
             navigate("/");
         }
-    },[slug, navigate, userData])
+    },[slug, navigate])
 
     const deletePost = () => {
         appwriteService.deletePost(post.$id).then((status) => {
