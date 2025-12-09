@@ -32,7 +32,7 @@ function Login() {
         setError("")
         try{
             const session = await authService.login(data);
-            console.log(session)
+            // console.log(session)
             
             if (session){
                 const userData = await authService.getCurrentUser();

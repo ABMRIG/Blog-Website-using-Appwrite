@@ -10,7 +10,7 @@ function MyPosts() {
 
 
     useEffect(() => {
-        console.log("MyPosts", userData);
+        // console.log("MyPosts", userData);
         appwriteService.getFileByUserId(userData.$id).then((posts) => {
             if (posts) {
                 setPosts(posts.documents)
