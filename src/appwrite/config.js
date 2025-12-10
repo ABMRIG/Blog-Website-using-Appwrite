@@ -25,7 +25,7 @@ export class Service{
                     content,
                     featuredImage,
                     status,
-                    userId
+                    userId,
                 }
 
             )
@@ -139,8 +139,9 @@ export class Service{
         )
     }
 
+    //This is for my MyPosts
     async getFileByUserId(userId){
-        console.log(userId)
+        // console.log(userId)
         try{
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
@@ -152,6 +153,22 @@ export class Service{
         }
         catch(error){
             console.log("Appwrite Service :: getFilebyUserId :: error: ",error)
+        }
+    }
+
+    async getFullNameByUserId(userId){
+        try{
+            // console.log(userId)
+            const doc = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionIdUserInfo,
+                userId       // this is the document ID here
+            );
+
+            return doc.fullName;
+        }
+        catch(error){
+            console.log("Appwrite Service :: getFullNameByUserId :: error: ",error)
         }
     }
 }

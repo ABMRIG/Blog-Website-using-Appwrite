@@ -15,7 +15,7 @@ export default function Post() {
         return state.auth.userData});
     
     const isAuthor = post && userData ? post.userId === userData.$id : false;
-
+    // {console.log(appwriteService.getFullNameByUserId(userData.$id))}
     // on the very 1st render, the post of useState has not been populated by getPost().
     // for this reason, isAuthor is still false
     // therefore, edit and delete buttons are not renderdered on 1st render.

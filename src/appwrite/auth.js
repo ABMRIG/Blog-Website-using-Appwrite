@@ -1,10 +1,11 @@
 import conf from "../conf/conf";
-import { Client, Account, ID } from "appwrite";
+import { Client, Account, ID, Databases } from "appwrite";
 
 
 export class AuthService {
     client = new Client ();
     account;
+    databases
 
     constructor (){
         this.client
@@ -12,12 +13,22 @@ export class AuthService {
             .setProject(conf.appwriteProjectId)
             
         this.account = new Account (this.client)
+        this.databases = new Databases(this.client);
     }
 
     async createAccount ({email, password, name}){
         try{
             const userAccount = await this.account.create(ID.unique(), email, password, name)
             if (userAccount){
+            //     await this.databases.createDocument(
+            //     conf.appwriteDatabaseId,
+            //     conf.appwriteCollectionIdUserInfo,
+            //     {
+            //         userId,
+            //         fullName
+            //     }
+            // )
+                
                 // if userAccount created succesfully then 
                 // login directly
                 return this.login({email, password})
@@ -25,6 +36,7 @@ export class AuthService {
             else{
                 return userAccount
             }
+
         }
         catch(err){
             throw err;
@@ -57,6 +69,27 @@ export class AuthService {
         }
         catch (error){
             console.log("Appwriteservice :: Logout :: error: ",error);
+        }
+    }
+
+    async addUserToDatabase(userId, fullName, email){
+        try{
+            // console.log("auth.js userId: ",userId)
+            // console.log("auth.js fullName: ",fullName)
+
+            await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionIdUserInfo,
+                userId,
+                {
+                    userId,
+                    fullName,
+                    email
+                }
+            )
+        }
+        catch(error){
+            console.log("Appwriteservice :: addUserToDatabase :: error: ",error)
         }
     }
 }

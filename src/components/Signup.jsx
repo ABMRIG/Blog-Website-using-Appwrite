@@ -15,22 +15,35 @@ function Signup() {
     const [error, setError] = useState("");
     const {register, handleSubmit} = useForm();
 
-    const create = async (data) =>{
+    const create = async (data) => {
         setError("");
-        try{
-            const userData = await authService.createAccount(data);
-            if (userData){
-                const userData = await authService.getCurrentUser();
-                if (userData){
-                    dispatch(login(userData));
+        try {
+            // console.log("signup.jsx name: ", data.name);
+
+            // 1. Create account + session
+            const session = await authService.createAccount(data);
+
+            if (session) {
+                // 2. Get current logged-in user
+                const currentUser = await authService.getCurrentUser();
+
+                if (currentUser) {
+                    dispatch(login(currentUser));
+
+                    // console.log("signup.jsx userId: ", currentUser.$id);
+
+                    // 3. Save user info in DB
+                    await authService.addUserToDatabase(currentUser.$id, data.name, currentUser.email);
+
+                    // 4. Redirect
                     navigate("/");
                 }
             }
+        } catch (error) {
+            setError(error.message);
         }
-        catch(error){
-            setError(error.message)
-        }
-    }
+    };
+
 
     return (
         <div className='flex items-center justify-center'>
