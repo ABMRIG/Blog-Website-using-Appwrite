@@ -8,15 +8,15 @@ function PostCard({$id, title, featuredImage, userId}) {
     const [fullName, setFullName] = useState("");
 
     useEffect(()=>{
-        // async function fetchName (){
-        //     const fname = await appwriteService.getFullNameByUserId(userId);
-        //     setFullName(fname);
-        // }
-        // if (userId) {
-        //     fetchName();
-        // }
-            const fname = appwriteService.getFullNameByUserId(userId);
+        async function fetchName (){
+            const fname = await appwriteService.getFullNameByUserId(userId);
             setFullName(fname);
+        }
+        if (userId) {
+            fetchName();
+        }
+            // const fname = appwriteService.getFullNameByUserId(userId);
+            // setFullName(fname);
         
     },[userId])
   
